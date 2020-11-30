@@ -2,19 +2,24 @@ package main
 
 import (
 	"fmt"
+	"github.com/mdhender/scheme"
 	"io"
 	"os"
 )
 
 func main() {
-	if err := run(); err != nil {
+	i := scheme.New()
+	fmt.Println(*i)
+
+	cfg, err := config()
+	if err != nil {
 		fmt.Printf("%+v\n", err)
 		os.Exit(2)
 	}
-}
-
-func run() error {
-	return repl([]byte{})
+	if err := run(cfg); err != nil {
+		fmt.Printf("%+v\n", err)
+		os.Exit(2)
+	}
 }
 
 func repl(b []byte) error {
